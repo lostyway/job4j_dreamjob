@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head th:replace="fragments/header :: header"><title>Header</title></head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Имя кандидата</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Время создания</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="candidate: ${candidates}">
+                <td th:text="${candidate.id}"/>
+                <td th:text="${candidate.name}"/>
+                <td th:text="${candidate.description}"/>
+                <td th:text="${candidate.formattedCreationDate}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

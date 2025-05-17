@@ -11,7 +11,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
-    public MemoryVacancyRepository() {
+    private MemoryVacancyRepository() {
         save(new Vacancy(0, "Intern Java Developer", "Just simple intern"));
         save(new Vacancy(0, "Junior Java Developer", "Just simple Jun"));
         save(new Vacancy(0, "Junior+ Java Developer", "Not a simple Jun"));
