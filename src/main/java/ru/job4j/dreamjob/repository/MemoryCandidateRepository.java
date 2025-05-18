@@ -10,15 +10,10 @@ import java.util.Optional;
 
 @Repository
 public class MemoryCandidateRepository implements CandidateRepository {
-    private static final MemoryCandidateRepository INSTANCE = new MemoryCandidateRepository();
     private final Map<Integer, Candidate> candidates = new HashMap<>();
     private int nextId = 1;
 
-    public static MemoryCandidateRepository getInstance() {
-        return INSTANCE;
-    }
-
-    private MemoryCandidateRepository() {
+    public MemoryCandidateRepository() {
         save(new Candidate(0, "Yura", "3 years of experience"));
         save(new Candidate(0, "Vasya", "5 years of experience"));
         save(new Candidate(0, "Masha", "2 years of experience in HR"));
