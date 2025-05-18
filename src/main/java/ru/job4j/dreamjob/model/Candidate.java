@@ -61,7 +61,9 @@ public class Candidate {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Candidate candidate = (Candidate) o;
         return id == candidate.id;
     }

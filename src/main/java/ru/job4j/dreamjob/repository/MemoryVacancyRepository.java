@@ -40,7 +40,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(),
                 (key, oldVal)
-                        -> new Vacancy(oldVal.getId(), vacancy.getTitle(), vacancy.getDescription()) ) != null;
+                        -> new Vacancy(oldVal.getId(), vacancy.getTitle(), vacancy.getDescription())) != null;
     }
 
     @Override

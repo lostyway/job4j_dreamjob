@@ -61,7 +61,9 @@ public class Vacancy {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Vacancy vacancy = (Vacancy) o;
         return id == vacancy.id;
     }
