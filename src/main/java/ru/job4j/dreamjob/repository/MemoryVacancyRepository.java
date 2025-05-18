@@ -2,7 +2,10 @@ package ru.job4j.dreamjob.repository;
 
 import ru.job4j.dreamjob.model.Vacancy;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class MemoryVacancyRepository implements VacancyRepository {
     private static final MemoryVacancyRepository INSTANCE = new MemoryVacancyRepository();
