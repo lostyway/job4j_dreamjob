@@ -23,6 +23,10 @@ public class Candidate {
         this.creationDate = creationDate;
     }
 
+    public Candidate() {
+        this.creationDate = LocalDateTime.now().withNano(0);
+    }
+
     public int getId() {
         return id;
     }
