@@ -15,9 +15,9 @@
             </thead>
             <tbody>
             <tr th:each="vacancy: ${vacancies}">
-                <td th:text="${vacancy.id}"/>
-                <td th:text="${vacancy.title}"/>
-                <td th:text="${vacancy.formattedCreationDate}"/>
+                <td th:text="${vacancy.id}"></td>
+                <td th:text="${vacancy.title}"></td>
+                <td th:text="${#temporals.format(vacancy.creationDate, 'dd.MM.yyyy HH:mm')}"></td>
             </tr>
             </tbody>
         </table>

@@ -1,7 +1,6 @@
 package ru.job4j.dreamjob.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Vacancy {
@@ -22,6 +21,10 @@ public class Vacancy {
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
+    }
+
+    public Vacancy() {
+        this.creationDate = LocalDateTime.now().withNano(0);
     }
 
     public int getId() {
@@ -50,11 +53,6 @@ public class Vacancy {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
-    }
-
-    public String getFormattedCreationDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        return creationDate.format(formatter);
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
