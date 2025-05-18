@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/header :: header"></head>
+<head th:replace="fragments/header :: header"><title>Head)</title></head>
 <body>
 <div th:replace="fragments/navigation :: navigation"></div>
-<h3>
+<h3 class="text-center">
     Проект job4j_dreamjob, выполняемый в рамках курса
 </h3>
-<div class="container m-0">
+<div class="container text-center mt-4">
     <a class="btn btn-primary mr-2" th:href="@{/vacancies}">Вакансии</a>
     <a class="btn btn-primary mr-2" th:href="@{/candidates}">Кандидаты</a>
     <a class="btn btn-success mr-2" th:href="@{/vacancies/create}">Создать вакансию</a>

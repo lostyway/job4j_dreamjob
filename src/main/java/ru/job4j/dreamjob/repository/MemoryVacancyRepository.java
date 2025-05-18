@@ -17,12 +17,12 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final AtomicInteger nextId = new AtomicInteger(1);
 
     public MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer", "Just simple intern", true));
-        save(new Vacancy(0, "Junior Java Developer", "Just simple Jun", true));
-        save(new Vacancy(0, "Junior+ Java Developer", "Not a simple Jun", true));
-        save(new Vacancy(0, "Middle Java Developer", "Just simple middle", false));
-        save(new Vacancy(0, "Middle+ Java Developer", "not a simple middle", true));
-        save(new Vacancy(0, "Senior Java Developer", "boss senior", true));
+        save(new Vacancy(0, "Intern Java Developer", "Just simple intern", true, 0));
+        save(new Vacancy(0, "Junior Java Developer", "Just simple Jun", true, 0));
+        save(new Vacancy(0, "Junior+ Java Developer", "Not a simple Jun", true, 0));
+        save(new Vacancy(0, "Middle Java Developer", "Just simple middle", false, 0));
+        save(new Vacancy(0, "Middle+ Java Developer", "not a simple middle", true, 0));
+        save(new Vacancy(0, "Senior Java Developer", "boss senior", true, 0));
     }
 
     @Override
@@ -39,12 +39,10 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     @Override
     public boolean update(Vacancy vacancy) {
-        return vacancies.computeIfPresent(vacancy.getId(),
-                (key, oldVal)
-                        -> new Vacancy(oldVal.getId(),
-                        vacancy.getTitle(),
-                        vacancy.getDescription(),
-                        vacancy.getVisible())
+        return vacancies.computeIfPresent(vacancy.getId(), (key, oldVal) ->
+                new Vacancy(
+                        oldVal.getId(), vacancy.getTitle(), vacancy.getDescription(),
+                        vacancy.getVisible(), vacancy.getCityId())
         ) != null;
     }
 
