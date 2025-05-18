@@ -1,41 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/header :: header"><title>Header</title></head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 <div th:replace="fragments/navigation :: navigation"></div>
-<div class="container">
-    <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<h1>
+    Проект job4j_dreamjob
+</h1>
+<div class="container mt-5">
+    <a class="btn btn-primary mr-2" th:href="@{/vacancies}">Вакансии</a>
+    <a class="btn btn-primary mr-2" th:href="@{/candidates}">Кандидаты</a>
+    <a class="btn btn-success mr-2 " th:href="@{/vacancies/create}">Создать вакансию</a>
+    <a class="btn btn-success mr-2" th:href="@{/candidates/create}">Создать резюме</a>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
