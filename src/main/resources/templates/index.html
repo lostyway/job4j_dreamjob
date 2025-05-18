@@ -3,13 +3,13 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <div th:replace="fragments/navigation :: navigation"></div>
-<h1>
-    Проект job4j_dreamjob
-</h1>
-<div class="container mt-5">
+<h3>
+    Проект job4j_dreamjob, выполняемый в рамках курса
+</h3>
+<div class="container m-0">
     <a class="btn btn-primary mr-2" th:href="@{/vacancies}">Вакансии</a>
     <a class="btn btn-primary mr-2" th:href="@{/candidates}">Кандидаты</a>
-    <a class="btn btn-success mr-2 " th:href="@{/vacancies/create}">Создать вакансию</a>
+    <a class="btn btn-success mr-2" th:href="@{/vacancies/create}">Создать вакансию</a>
     <a class="btn btn-success mr-2" th:href="@{/candidates/create}">Создать резюме</a>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
