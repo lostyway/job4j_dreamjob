@@ -17,12 +17,12 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private final AtomicInteger nextId = new AtomicInteger(1);
 
     public MemoryCandidateRepository() {
-        save(new Candidate(0, "Yura", "3 years of experience", 6));
-        save(new Candidate(0, "Vasya", "5 years of experience", 2));
-        save(new Candidate(0, "Masha", "2 years of experience in HR", 3));
-        save(new Candidate(0, "Lera", "1 years of experience in Yandex", 1));
-        save(new Candidate(0, "Misha", "4 years of experience in street food", 2));
-        save(new Candidate(0, "Valera", "0 years of experience", 2));
+        save(new Candidate(0, "Yura", "3 years of experience", 6, 0));
+        save(new Candidate(0, "Vasya", "5 years of experience", 2, 0));
+        save(new Candidate(0, "Masha", "2 years of experience in HR", 3, 0));
+        save(new Candidate(0, "Lera", "1 years of experience in Yandex", 1, 0));
+        save(new Candidate(0, "Misha", "4 years of experience in street food", 2, 0));
+        save(new Candidate(0, "Valera", "0 years of experience", 2, 0));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
         return candidates.computeIfPresent(candidate.getId(), (key, oldValue) ->
                 new Candidate(
                         candidate.getId(), candidate.getName(), candidate.getDescription(),
-                        candidate.getCreationDate(), candidate.getCityId())
+                        candidate.getCreationDate(), candidate.getCityId(), candidate.getFileId())
         ) != null;
     }
 

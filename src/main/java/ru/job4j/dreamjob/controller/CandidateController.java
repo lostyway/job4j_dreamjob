@@ -3,6 +3,8 @@ package ru.job4j.dreamjob.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
@@ -34,9 +36,14 @@ public class CandidateController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Candidate candidate) {
-        candidateService.save(candidate);
-        return "redirect:/candidates";
+    public String create(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file, Model model) {
+        try {
+            candidateService.save(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            return "redirect:/candidates";
+        } catch (Exception exception) {
+            model.addAttribute("message", "Произошла ошибка при создании вакансии");
+            return "errors/404";
+        }
     }
 
     @GetMapping("/{id}")
@@ -52,22 +59,27 @@ public class CandidateController {
     }
 
     @PostMapping("/update")
-    public String update(Model model, @ModelAttribute Candidate candidate) {
-        boolean isUpdated = candidateService.update(candidate);
-        if (!isUpdated) {
+    public String update(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file, Model model) {
+        try {
+            boolean isUpdated = candidateService.update(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            if (!isUpdated) {
+                model.addAttribute("message", "Кандидат с таким id не был найден");
+                return "errors/404";
+            }
+            return "redirect:/candidates";
+        } catch (Exception exception) {
             model.addAttribute("message", "Кандидат с таким id не был найден");
             return "errors/404";
         }
-        return "redirect:/candidates";
     }
 
     @GetMapping("delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-       boolean isDeleted = candidateService.deleteById(id);
-       if (!isDeleted) {
-           model.addAttribute("message", "Кандидат с таким id не был найден");
-           return "errors/404";
-       }
+        boolean isDeleted = candidateService.deleteById(id);
+        if (!isDeleted) {
+            model.addAttribute("message", "Кандидат с таким id не был найден");
+            return "errors/404";
+        }
         return "redirect:/candidates";
     }
 }
