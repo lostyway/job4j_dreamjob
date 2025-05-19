@@ -25,4 +25,8 @@ public class FileDto {
     public void setContent(byte[] content) {
         this.content = content;
     }
+
+    public boolean isEmpty() {
+        return content == null || content.length == 0;
+    }
 }

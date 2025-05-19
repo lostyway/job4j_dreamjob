@@ -3,7 +3,7 @@ package ru.job4j.dreamjob.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Candidate {
+public class Candidate implements HasFileId{
     private int id;
     private String name;
     private String description;

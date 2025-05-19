@@ -11,47 +11,34 @@ import java.util.Optional;
 
 @ThreadSafe
 @Service
-public class SimpleVacancyService implements VacancyService {
+public class SimpleVacancyService extends AbstractFileEntityService<Vacancy> implements VacancyService {
     private final VacancyRepository vacancyRepository;
-    private final FileService fileService;
 
     public SimpleVacancyService(VacancyRepository vacancyRepository, FileService fileService) {
+        super(fileService);
         this.vacancyRepository = vacancyRepository;
-        this.fileService = fileService;
     }
 
     @Override
     public Vacancy save(Vacancy vacancy, FileDto image) {
-        saveNewFile(vacancy, image);
+        attachNewFile(vacancy, image);
         return vacancyRepository.save(vacancy);
-    }
-
-    private void saveNewFile(Vacancy vacancy, FileDto image) {
-        var file = fileService.save(image);
-        vacancy.setFileId(file.getId());
     }
 
     @Override
     public boolean deleteById(int id) {
-        var fileOptional = findById(id);
-        if (fileOptional.isPresent()) {
-            vacancyRepository.deleteById(id);
-            fileService.deleteById(fileOptional.get().getFileId());
-            return true;
-        }
-        return false;
+        return deleteEntityWithFileById(id, vacancyRepository::findById, vacancyRepository::deleteById);
     }
 
     @Override
     public boolean update(Vacancy vacancy, FileDto image) {
-        boolean isNewFileEmpty = image.getContent().length == 0;
-        if (isNewFileEmpty) {
+        if (isNewFileEmpty(image)) {
             return vacancyRepository.update(vacancy);
         }
-        var oldFileId = vacancy.getFileId();
-        saveNewFile(vacancy, image);
+        int oldFileId = vacancy.getFileId();
+        attachNewFile(vacancy, image);
         boolean isUpdated = vacancyRepository.update(vacancy);
-        fileService.deleteById(oldFileId);
+        deleteOldFile(oldFileId);
         return isUpdated;
     }
 
