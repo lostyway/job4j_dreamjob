@@ -14,9 +14,9 @@ import java.util.Optional;
 public class SimpleVacancyService extends AbstractFileEntityService<Vacancy> implements VacancyService {
     private final VacancyRepository vacancyRepository;
 
-    public SimpleVacancyService(VacancyRepository vacancyRepository, FileService fileService) {
+    public SimpleVacancyService(VacancyRepository sql2oVacancyRepository, FileService fileService) {
         super(fileService);
-        this.vacancyRepository = vacancyRepository;
+        this.vacancyRepository = sql2oVacancyRepository;
     }
 
     @Override
