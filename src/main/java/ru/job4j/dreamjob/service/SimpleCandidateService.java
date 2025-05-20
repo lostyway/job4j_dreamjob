@@ -14,9 +14,9 @@ import java.util.Optional;
 public class SimpleCandidateService extends AbstractFileEntityService<Candidate> implements CandidateService  {
     private final CandidateRepository candidateRepository;
 
-    public SimpleCandidateService(CandidateRepository candidateRepository, FileService fileService) {
+    public SimpleCandidateService(CandidateRepository sql2oCandidateRepository, FileService fileService) {
         super(fileService);
-        this.candidateRepository = candidateRepository;
+        this.candidateRepository = sql2oCandidateRepository;
     }
 
     @Override

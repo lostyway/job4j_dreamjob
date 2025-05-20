@@ -41,8 +41,7 @@ public class Sql2oVacancyRepository implements VacancyRepository {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("DELETE FROM vacancies WHERE id = :id");
             query.addParameter("id", id);
-            int affectedRows = query.executeUpdate().getResult();
-            return affectedRows > 0;
+            return query.executeUpdate().getResult() > 0;
         }
     }
 
@@ -63,16 +62,15 @@ public class Sql2oVacancyRepository implements VacancyRepository {
                     .addParameter("cityId", vacancy.getCityId())
                     .addParameter("fileId", vacancy.getFileId())
                     .addParameter("id", vacancy.getId());
-            int affectedRows = query.executeUpdate().getResult();
-            return affectedRows > 0;
+            return query.executeUpdate().getResult() > 0;
         }
     }
 
     @Override
     public Optional<Vacancy> findById(int id) {
         try (var connection = sql2o.open()) {
-            var query = connection.createQuery("SELECT * FROM vacancies WHERE id = :id");
-            query.addParameter("id", id);
+            var query = connection.createQuery("SELECT * FROM vacancies WHERE id = :id")
+                    .addParameter("id", id);
             var vacancy = query.setColumnMappings(Vacancy.COLUMN_MAPPING).executeAndFetchFirst(Vacancy.class);
             return Optional.ofNullable(vacancy);
         }
