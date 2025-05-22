@@ -1,6 +1,5 @@
 package ru.job4j.dreamjob.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +8,6 @@ import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.VacancyService;
-import ru.job4j.dreamjob.utility.HttpSessionChecker;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -26,15 +24,13 @@ public class VacancyController {
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model, HttpSession session) {
-        HttpSessionChecker.checkSession(session, model);
+    public String getCreationPage(Model model) {
         model.addAttribute("cities", cityService.findAll());
         return "vacancies/create";
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id, HttpSession session) {
-        HttpSessionChecker.checkSession(session, model);
+    public String getById(Model model, @PathVariable int id) {
         var vacancyOptional = vacancyService.findById(id);
         if (vacancyOptional.isEmpty()) {
             model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
@@ -72,8 +68,7 @@ public class VacancyController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable int id, HttpSession session) {
-        HttpSessionChecker.checkSession(session, model);
+    public String delete(Model model, @PathVariable int id) {
         boolean isDeleted = vacancyService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
@@ -83,8 +78,7 @@ public class VacancyController {
     }
 
     @GetMapping
-    public String getAll(Model model, HttpSession session) {
-        HttpSessionChecker.checkSession(session, model);
+    public String getAll(Model model) {
         model.addAttribute("vacancies", vacancyService.findAll());
         return "vacancies/list";
     }
