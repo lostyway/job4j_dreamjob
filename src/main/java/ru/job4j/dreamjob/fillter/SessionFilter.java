@@ -24,11 +24,9 @@ public class SessionFilter extends HttpFilter {
     }
 
     private void addUserToSession(HttpSession session, HttpServletRequest request) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            request.setAttribute("user", user);
         }
-        request.setAttribute("user", user);
     }
 }

@@ -8,6 +8,7 @@ import javax.annotation.concurrent.ThreadSafe;
 @ThreadSafe
 @Controller
 public class IndexController {
+
     @GetMapping({"/", "/index"})
     public String getIndex() {
         return "index";
