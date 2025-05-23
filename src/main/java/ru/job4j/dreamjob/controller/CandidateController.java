@@ -10,6 +10,7 @@ import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.io.IOException;
 
 @ThreadSafe
 @Controller
@@ -38,7 +39,10 @@ public class CandidateController {
     @PostMapping("/create")
     public String create(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file, Model model) {
         try {
-            candidateService.save(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            Candidate candidateToGet = candidateService.save(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            if (candidateToGet == null) {
+                throw new RuntimeException("Failed to save candidate");
+            }
             return "redirect:/candidates";
         } catch (Exception exception) {
             model.addAttribute("message", "Произошла ошибка при создании вакансии");
@@ -67,8 +71,11 @@ public class CandidateController {
                 return "errors/404";
             }
             return "redirect:/candidates";
+        } catch (IOException e) {
+            model.addAttribute("message", "Произошла проблема при чтении файла");
+            return "errors/404";
         } catch (Exception exception) {
-            model.addAttribute("message", "Кандидат с таким id не был найден");
+            model.addAttribute("message", "Произошла ошибка при добавлении резюме");
             return "errors/404";
         }
     }

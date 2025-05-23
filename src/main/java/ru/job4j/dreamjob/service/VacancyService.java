@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.service;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Vacancy;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ public interface VacancyService {
 
     boolean deleteById(int id);
 
-    boolean update(Vacancy vacancy, FileDto image);
+    boolean update(Vacancy vacancy, FileDto image) throws IOException;
 
     Optional<Vacancy> findById(int id);
 

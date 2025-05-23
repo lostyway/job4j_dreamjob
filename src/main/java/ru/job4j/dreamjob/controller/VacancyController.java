@@ -10,6 +10,7 @@ import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.VacancyService;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.io.IOException;
 
 @ThreadSafe
 @Controller
@@ -47,7 +48,7 @@ public class VacancyController {
             vacancyService.save(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             return "redirect:/vacancies";
         } catch (Exception exception) {
-            model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+            model.addAttribute("message", exception.getMessage());
             return "errors/404";
         }
     }
@@ -61,8 +62,11 @@ public class VacancyController {
                 return "errors/404";
             }
             return "redirect:/vacancies";
+        } catch (IOException exception) {
+            model.addAttribute("message", "Проблемы с чтением файла");
+            return "errors/404";
         } catch (Exception exception) {
-            model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+            model.addAttribute("message", "Произошла ошибка при сохранении вакансии." + exception.getMessage());
             return "errors/404";
         }
     }
